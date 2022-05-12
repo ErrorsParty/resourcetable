@@ -5,6 +5,7 @@
 !/.github/
 !/.github/workflows/
 !/.github/workflows/ci.yml
+!/.github/workflows/pull.yml
 !/.github/scripts/
 !/.github/scripts/**/
 !/.github/scripts/**/*

@@ -26,12 +26,13 @@ jobs:
           .github/scripts/newVersion << EOF
               ${{ toJSON(github.event) }}
           EOF
-      - name: "Update package.json and changelog & create and push tag"
+      - name: "Update package.json and changelog"
         if: "steps.getInc.outputs.newVersion"
         run: ".github/scripts/updateVersions ${{ steps.getInc.outputs.newVersion }}"
       - name: "Build project"
         run: "npm run build"
       - name: "Create git tag"
+        if: "steps.getInc.outputs.newVersion"
         run: |
           git add .
           git config --global user.name "x-access-token"

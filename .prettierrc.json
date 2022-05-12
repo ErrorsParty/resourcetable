@@ -14,7 +14,7 @@
 	"vueIndentScriptAndStyle": true,
 	"overrides": [
 		{
-			"files": ["package.json", "package-lock.json"],
+			"files": ["package.json", "package-lock.json", "README.md"],
 			"options": {
 				"useTabs": false,
 				"tabWidth": 2,

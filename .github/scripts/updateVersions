@@ -1,0 +1,58 @@
+#!/usr/bin/env -S zx
+$.verbose = false;
+
+const newVersion = argv._[1];
+
+// #region CHANGELOG.md
+{
+	/** @type {string} */
+	const before = (
+		await fs.readFile(__dirname + "/../../CHANGELOG.md")
+	).toString();
+
+	const opener = "## Unreleased";
+	let closer = "##";
+
+	const start = before.indexOf(opener) + opener.length;
+	let end = before.indexOf(closer, start);
+	if (end === -1) {
+		closer = "";
+		end = before.length;
+	}
+
+	const at = new Date();
+
+	let after =
+		before.substring(0, start) +
+		`\n\n## ${newVersion} (${at.getFullYear()}-${(at.getMonth() + 1)
+			.toString()
+			.padStart(2, "0")}-${at
+			.getDate()
+			.toString()
+			.padStart(2, "0")})${(
+			(closer ? `\n\n` : "") + before.substring(start, end).trim()
+		).trim()}${closer ? `\n\n${closer}` : ""}${before.substring(
+			end + closer.length,
+		)}`;
+
+	await fs.writeFile(
+		__dirname + "/../../CHANGELOG.md",
+		after.trim() + "\n",
+	);
+}
+// #endregion
+
+// #region package.json
+
+{
+	// prettier-ignore
+	/** @type {string} */
+	const before = JSON.parse((await fs.readFile(__dirname + "/../../package.json")).toString());
+	before.version = newVersion;
+	await fs.writeFile(
+		__dirname + "/../../package.json",
+		JSON.stringify(before, null, 2) + "\n",
+	);
+}
+
+// #endregion

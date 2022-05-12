@@ -1,0 +1,48 @@
+# Ignore everything.
+*
+
+# GitHub Configurations
+!/.github/
+!/.github/workflows/
+!/.github/workflows/ci.yml
+!/.github/scripts/
+!/.github/scripts/**/
+!/.github/scripts/**/*
+
+# Scripts
+!/scripts/
+!/scripts/**/
+!/scripts/**/*
+
+# Visual Studio Code Settings
+!/.vscode/
+!/.vscode/settings.json
+!/.vscode/extensions.json
+
+# Source files.
+!/src/
+!/src/**/
+!/src/**/*.ts
+!/src/**/*.html
+!/src/**/*.js
+!/src/**/*.css
+!/src/**/*.svg
+
+# Configuratin Files
+!/.eslintrc.js
+!/tsconfig.json
+!/rollup.config.js
+!/package.json
+!/package-lock.json
+!/.eslintrc.json
+!/.prettierrc.json
+
+# Ignore Files
+!/.eslintignore
+!/.gitignore
+!/.npmignore
+
+# About
+!/README.md
+!/LICENSE
+!/CHANGELOG.md

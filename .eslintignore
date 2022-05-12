@@ -1,0 +1,8 @@
+*
+!/src/
+!/src/**/
+!/src/**/*.ts
+!/.eslintrc.js
+!/.*.json
+!/*.json
+!/README.md

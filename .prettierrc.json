@@ -1,0 +1,25 @@
+{
+	"arrowParens": "always",
+	"printWidth": 70,
+	"useTabs": true,
+	"semi": true,
+	"singleQuote": false,
+	"quoteProps": "as-needed",
+	"jsxSingleQuote": false,
+	"trailingComma": "all",
+	"bracketSpacing": true,
+	"bracketSameLine": false,
+	"htmlWhitespaceSensitivity": "strict",
+	"endOfLine": "lf",
+	"vueIndentScriptAndStyle": true,
+	"overrides": [
+		{
+			"files": ["package.json", "package-lock.json"],
+			"options": {
+				"useTabs": false,
+				"tabWidth": 2,
+				"endOfLine": "lf"
+			}
+		}
+	]
+}

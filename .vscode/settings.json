@@ -1,0 +1,65 @@
+{
+	"[javascript]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": false
+	},
+	"[typescript]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": false
+	},
+	"[javascriptreact]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": false
+	},
+	"[typescriptreact]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": false
+	},
+	"[json]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[jsonc]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[markdown]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "denoland.vscode-deno",
+		"editor.insertSpaces": true,
+		"editor.detectIndentation": false
+	},
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"files.exclude": {
+		"**/.docker/.data/*/*": true
+	},
+	"files.associations": {
+		"scripts/updateVersions": "js"
+	},
+	"files.insertFinalNewline": true,
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.expand": false,
+	"explorer.fileNesting.patterns": {
+		"*.d.ts": "${capture}.d.ts.map",
+		"*.ts": "${capture}.js, ${capture}.d.ts.map",
+		"*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+		"*.jsx": "${capture}.js, ${capture}.css",
+		"*.tsx": "${capture}.ts, ${capture}.css",
+		"tsconfig.json": "tsconfig.*.json",
+		"package.json": "package-lock.json, yarn.lock, .*.json, *.config.js, *.config.ts, LICENSE, tsconfig.json",
+		".gitignore": ".*ignore",
+		".env": ".env.example",
+		"docker-compose.yaml": "docker-compose.*.yaml",
+		"Dockerfile": "*.dockerfile"
+	},
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false
+}

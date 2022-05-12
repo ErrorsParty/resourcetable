@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"plugins": [],
+		"allowJs": false,
+		"alwaysStrict": true,
+		"strict": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"lib": ["ESNext"],
+		"module": "esnext",
+		"moduleResolution": "Node",
+		"newLine": "lf",
+		"outDir": "dist/",
+		"removeComments": true,
+		"target": "esnext",
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+		"declarationMap": true,
+		"declaration": true,
+		"declarationDir": "./dist/"
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules/"]
+}

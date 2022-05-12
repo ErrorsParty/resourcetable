@@ -1,0 +1,14 @@
+{
+	"recommendations": [
+		"apollographql.vscode-apollo",
+		"ms-azuretools.vscode-docker",
+		"p1c2u.docker-compose",
+		"henriiik.docker-linter",
+		"mikestead.dotenv",
+		"dbaeumer.vscode-eslint",
+		"csstools.postcss",
+		"rvest.vs-code-prettier-eslint",
+		"bradlc.vscode-tailwindcss",
+		"forbeslindesay.vscode-sql-template-literal"
+	]
+}

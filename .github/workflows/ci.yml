@@ -1,0 +1,53 @@
+name: CI
+on:
+  - "push"
+  - "pull_request"
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "actions/setup-node@v2"
+        with:
+          node-version: "16.x"
+      - name: "Install all dependencies"
+        run: "npm install"
+      - name: "Check formatting"
+        run: "npm run fmt:check"
+      - name: "Check linting"
+        run: "npm run lint:check"
+      - name: "Install zx globally"
+        run: "npm i -g zx"
+      - name: "Set new version"
+        if: "github.ref == 'refs/heads/main'"
+        id: "getInc"
+        run: |
+          export ORIGIN="https://x-access-token:${GTOKEN}@github.com/${{ github.repository }}"
+          .github/scripts/newVersion << EOF
+              ${{ toJSON(github.event) }}
+          EOF
+      - name: "Update package.json and changelog & create and push tag"
+        if: "steps.getInc.outputs.newVersion"
+        run: ".github/scripts/updateVersions ${{ steps.getInc.outputs.newVersion }}"
+      - name: "Build project"
+        run: "npm run build"
+      - name: "Create git tag"
+        run: |
+          git add .
+          git config --global user.name "x-access-token"
+          git config --global user.email "x-access-token@users.noreply.github.com"
+          GTOKEN="${{ secrets.GITHUB_TOKEN }}"
+          git remote set-url origin https://x-access-token:${GTOKEN}@github.com/${{ github.repository }}
+          git commit -m "chore(version): Updated package.json and moved changelog version."
+          git tag "${{ steps.getInc.outputs.newVersion }}"
+          git push -u origin ${{ steps.getInc.outputs.newVersion }}
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+      - name: "Publish to NPM"
+        if: "steps.getInc.outputs.newVersion"
+        run: "npm publish"
+      - name: "Create release draft"
+        uses: "softprops/action-gh-release@v1"
+        with:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          draft: true
+          tag_name: "${{ steps.getInc.outputs.newVersion }}"

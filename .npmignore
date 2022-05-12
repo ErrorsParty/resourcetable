@@ -1,0 +1,9 @@
+*
+!/LICENSE
+!/package.json
+!/dist/
+!/dist/**/
+!/dist/**/*.js
+!/dist/**/*.d.ts
+!/dist/**/*.html
+!/dist/**/*.css

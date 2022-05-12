@@ -16,13 +16,13 @@ const myResourceTable = new ResourceTable();
 
 ```ts
 class PersonResource extends Resource {
-  public constructor(public readonly name: string) {
-    super();
-  }
+	public constructor(public readonly name: string) {
+		super();
+	}
 
-  public greet(format = "Hello, %s!") {
-    console.log(format, this.name);
-  }
+	public greet(format = "Hello, %s!") {
+		console.log(format, this.name);
+	}
 }
 ```
 

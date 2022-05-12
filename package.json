@@ -1,6 +1,6 @@
 {
   "name": "errorsparty-resources",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "A tool for storing resources.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

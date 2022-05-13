@@ -167,4 +167,30 @@ export class ResourceTable {
 		this.#resources.set(rid, resource);
 		return rid;
 	}
+
+	/**
+	 * Iterate over all resources with a certain type.
+	 * @param type The type to iterate over.
+	 */
+	public *of<T extends ResourceConstructor>(
+		type: T,
+	): Generator<
+		[key: ResourceId, value: InferResourceValue<T>],
+		void,
+		unknown
+	> {
+		for (const [rid, resource] of this.#resources) {
+			if (!resource.is(type)) {
+				continue;
+			}
+			yield [rid, resource as InferResourceValue<T>];
+		}
+	}
+
+	/** Iterate over all resources in the resource table. */
+	public *[Symbol.iterator]() {
+		for (const [rid, resource] of this.#resources) {
+			yield [rid, resource as ResourceValue];
+		}
+	}
 }

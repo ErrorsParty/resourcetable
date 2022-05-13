@@ -8,7 +8,7 @@ and this project adheres to
 
 ## Unreleased
 
-- Iterable `ResourceTable` and iterable `ResourceTable.of(type)` #4 (by
+## 0.1.2 (2022-05-13)- Iterable `ResourceTable` and iterable `ResourceTable.of(type)` #4 (by
   @imjamesb)
 
 ## 0.1.0

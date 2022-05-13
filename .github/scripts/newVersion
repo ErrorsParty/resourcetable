@@ -30,7 +30,7 @@ let largestStep = "none";
 
 l1: for (const message of messages) {
 	for (const step of order) {
-		if (message.indexOf(`#${step}`)) {
+		if (message.indexOf(`#${step}`) !== -1) {
 			if (largestStep === "none") largestStep = step;
 			else {
 				if (order.indexOf(largestStep) < order.indexOf(step)) {

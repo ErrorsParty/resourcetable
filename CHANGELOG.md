@@ -7,3 +7,10 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+- Iterable `ResourceTable` and iterable `ResourceTable.of(type)` #4 (by
+  @imjamesb)
+
+## 0.1.0
+
+- Project initiated.

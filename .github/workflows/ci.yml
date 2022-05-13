@@ -26,7 +26,7 @@ jobs:
               ${{ toJSON(github.event) }}
           EOF
       - name: "test ci"
-        run: echo {{ steps.getInc.outputs.newVersion }}
+        run: echo ${{ steps.getInc.outputs.newVersion }}
       - name: "Update package.json and changelog"
         if: "steps.getInc.outputs.newVersion"
         run: ".github/scripts/updateVersions ${{ steps.getInc.outputs.newVersion }}"

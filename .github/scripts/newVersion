@@ -8,18 +8,13 @@ import getLatestVersion, {
 } from "./utils/getLatestVersion.mjs";
 
 let text = "";
-
-process.stdin.on("data", (data) => {
-	text += data.toString("utf-8");
-});
+process.stdin.on("data", (data) => (text += data.toString("utf-8")));
 await new Promise((resolve) => process.stdin.on("end", resolve));
 
-const data = JSON.parse(text);
-// prettier-ignore
-const repo = (await $`git remote get-url origin`).stdout.substring(19);
-
 /** @type {string[]} */
-const messages = data.commits.map((commit) => commit.message);
+const messages = JSON.parse(text).commits.map((commit) =>
+	commit.message.toLowerCase(),
+);
 
 const order = [
 	"major",
@@ -31,59 +26,36 @@ const order = [
 	"prerelease",
 ];
 
-const last = ["none"];
+let largestStep = "none";
 
-for (const message of messages) {
-	const tags = [
-		...message.matchAll(
-			/\#(major|minor|patch|premajor|preminor|prepatch|prerelease|(version)\=([\d\.\-\w]+))/g,
-		),
-	].map(([, tag, versionTag, version]) => {
-		if (versionTag && version) {
-			return ["version", version];
-		} else {
-			return [tag];
+l1: for (const message of messages) {
+	for (const step of order) {
+		if (message.indexOf(`#${step}`) !== -1) {
+			if (largestStep === "none") largestStep = step;
+			else {
+				if (order.indexOf(largestStep) < order.indexOf(step)) {
+					largestStep = step;
+				}
+			}
+			break l1;
 		}
-	});
-	if (tags.length > 1) {
-		console.error("More than one tag");
-		process.exit(1);
-	}
-	const [tag, version] = tags[0] || [];
-	if (tag === "version") {
-		last[0] = tag;
-		last[1] = version;
-	} else {
-		const index1 = order.indexOf(last[0]);
-		const index2 = order.indexOf(tag);
-		last[1] = undefined;
-		if (index1 === -1) last[0] = tag;
-		else if (index2 < index1) last[0] = tag;
-		continue;
 	}
 }
 
-if (last[0] === "none") process.exit(0);
-
-// prettier-ignore
-JSON.stringify(data, null, 2).split("\n").forEach(line => console.log(line));
-console.log("::set-output name=step::" + last[0]);
-if (last[1]) console.log("::set-output name=version::" + last[1]);
-else console.log("::set-output name=version::none");
-
-if (last[0] === "version") {
-	console.log("::set-output name=newVersion::" + last[1]);
-} else {
-	const latest = await getLatestVersion(process.env.ORIGIN);
-	if (!latest) {
-		if (last[0] === "major")
-			console.log("::set-output name=newVersion::1.0.0");
-		else console.log("::set-output name=newVersion::0.1.0");
-		process.exit(0);
+if (largestStep !== "none") {
+	const latestVersion = await getLatestVersion(process.env.ORIGIN);
+	if (!latestVersion) {
+		console.log(
+			"::set-output name=newVersion::%s",
+			largestStep === "major" ? "1.0.0" : "0.1.0",
+		);
+	} else {
+		console.log(
+			"::set-output name=newVersion::%s",
+			inc(latestVersion, largestStep, {
+				includePrerelease: true,
+				loose: true,
+			}),
+		);
 	}
-	const newVersion = inc(latest, last[0], {
-		includePrerelease: true,
-		loose: false,
-	});
-	console.log("::set-output name=newVersion::" + newVersion);
 }
